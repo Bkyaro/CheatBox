@@ -1,11 +1,6 @@
 ---
 title: Consecutive element subarrays
 tags: array
-expertise: intermediate
-  chalarangelo
- : blog_images/camera-zoom.jpg
- : 2020-05-13T13:25:33+03:00
- : 2020-10-18T20:24:28+03:00
 ---
 
 Creates an array of `n`-tuples of consecutive elements.
