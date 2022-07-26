@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .wayOne {
+      padding: 8px 16px;
+      max-width: max-content;
+      border: 1px solid black;
+      cursor: pointer;
+      background-color: aqua;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .wayTwo {
+      cursor: pointer;
+      padding: 8px 16px;
+      max-width: max-content;
+      border: 1px solid black;
+      background-color: aqua;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <div class="wayOne">方法一，复制文本为“oneoneone”</div>
+    <div class="wayTwo">方法一，复制文本为“twotwotwo”</div>
+  </body>
+  <script></script>
+  <script>
+    window.onload = function () {
+      {
+
+        //First achieve (for modern browser)
+        const copyToClipboardAsync = (str) => {
+          if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+            return navigator.clipboard.writeText(str);
+          return Promise.reject("The Clipboard API is not available.");
+        };
+
+        //Second achieve (for older browser)
+        const copyToClipboard = (str) => {
+          const el = document.createElement("textarea");
+          el.value = str;
+          el.setAttribute("readonly", "");
+          el.style.position = "absolute";
+          el.style.left = "-9999px";
+          document.body.appendChild(el);
+          const selected =
+            document.getSelection().rangeCount > 0
+              ? document.getSelection().getRangeAt(0)
+              : false;
+          el.select();
+          document.execCommand("copy");
+          document.body.removeChild(el);
+          if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+          }
+        };
+
+        document.querySelector(".wayOne").addEventListener("click", function () {
+          copyToClipboardAsync(".oneoneone");
+          console.log("copy finished, please paste to check");
+        });
+        document.querySelector(".wayTwo").addEventListener("click", function () {
+          copyToClipboard("twotwotwo");
+          console.log("Second copy finished,please paste to check");
+        });
+      }
+    };
+  </script>
+</html>
